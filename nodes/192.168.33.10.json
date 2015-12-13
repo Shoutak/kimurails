@@ -1,0 +1,13 @@
+{
+    "run_list":[
+      "recipe[vim]",
+      "recipe[nodejs]",
+      "recipe[rbenv::default]",
+      "recipe[rbenv::ruby_build]",
+      "recipe[imagemagick]",
+      "recipe[imagemagick::devel]",
+      "recipe[imagemagick::rmagick]",
+      "recipe[opencv]",
+      "recipe[base]"
+    ]
+}

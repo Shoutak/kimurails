@@ -1,0 +1,358 @@
+have_header: checking for ruby/thread.h... -------------------- yes
+
+"gcc -o conftest -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/x86_64-linux -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/ruby/backward -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0 -I. -I/opt/rbenv/versions/2.1.5/include     -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration conftest.c  -L. -L/opt/rbenv/versions/2.1.5/lib -Wl,-R/opt/rbenv/versions/2.1.5/lib -L. -L/opt/rbenv/versions/2.1.5/lib  -fstack-protector -rdynamic -Wl,-export-dynamic     -Wl,-R -Wl,/opt/rbenv/versions/2.1.5/lib -L/opt/rbenv/versions/2.1.5/lib -lruby-static  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return 0;
+6: }
+/* end */
+
+"gcc -E -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/x86_64-linux -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/ruby/backward -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0 -I. -I/opt/rbenv/versions/2.1.5/include     -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <ruby/thread.h>
+/* end */
+
+--------------------
+
+have_func: checking for rb_thread_call_without_gvl() in ruby/thread.h... -------------------- yes
+
+"gcc -o conftest -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/x86_64-linux -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/ruby/backward -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0 -I. -I/opt/rbenv/versions/2.1.5/include     -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration conftest.c  -L. -L/opt/rbenv/versions/2.1.5/lib -Wl,-R/opt/rbenv/versions/2.1.5/lib -L. -L/opt/rbenv/versions/2.1.5/lib  -fstack-protector -rdynamic -Wl,-export-dynamic     -Wl,-R -Wl,/opt/rbenv/versions/2.1.5/lib -L/opt/rbenv/versions/2.1.5/lib -lruby-static  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <ruby/thread.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     printf("%p", &t);
+11:   }
+12: 
+13:   return 0;
+14: }
+15: int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_thread_call_without_gvl; return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for rb_thread_blocking_region()... -------------------- yes
+
+"gcc -o conftest -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/x86_64-linux -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/ruby/backward -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0 -I. -I/opt/rbenv/versions/2.1.5/include     -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration conftest.c  -L. -L/opt/rbenv/versions/2.1.5/lib -Wl,-R/opt/rbenv/versions/2.1.5/lib -L. -L/opt/rbenv/versions/2.1.5/lib  -fstack-protector -rdynamic -Wl,-export-dynamic     -Wl,-R -Wl,/opt/rbenv/versions/2.1.5/lib -L/opt/rbenv/versions/2.1.5/lib -lruby-static  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+conftest.c: In function ‘t’:
+conftest.c:13: 警告: ‘rb_thread_blocking_region’ is deprecated (declared at /opt/rbenv/versions/2.1.5/include/ruby-2.1.0/ruby/intern.h:870)
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_thread_blocking_region; return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for rb_wait_for_single_fd()... -------------------- yes
+
+"gcc -o conftest -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/x86_64-linux -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/ruby/backward -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0 -I. -I/opt/rbenv/versions/2.1.5/include     -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration conftest.c  -L. -L/opt/rbenv/versions/2.1.5/lib -Wl,-R/opt/rbenv/versions/2.1.5/lib -L. -L/opt/rbenv/versions/2.1.5/lib  -fstack-protector -rdynamic -Wl,-export-dynamic     -Wl,-R -Wl,/opt/rbenv/versions/2.1.5/lib -L/opt/rbenv/versions/2.1.5/lib -lruby-static  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+conftest.c: In function ‘t’:
+conftest.c:13: error: ‘rb_wait_for_single_fd’ undeclared (first use in this function)
+conftest.c:13: error: (Each undeclared identifier is reported only once
+conftest.c:13: error: for each function it appears in.)
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_wait_for_single_fd; return 0; }
+/* end */
+
+"gcc -o conftest -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/x86_64-linux -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/ruby/backward -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0 -I. -I/opt/rbenv/versions/2.1.5/include     -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration conftest.c  -L. -L/opt/rbenv/versions/2.1.5/lib -Wl,-R/opt/rbenv/versions/2.1.5/lib -L. -L/opt/rbenv/versions/2.1.5/lib  -fstack-protector -rdynamic -Wl,-export-dynamic     -Wl,-R -Wl,/opt/rbenv/versions/2.1.5/lib -L/opt/rbenv/versions/2.1.5/lib -lruby-static  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+conftest.c: In function ‘t’:
+conftest.c:13: 警告: implicit declaration of function ‘rb_wait_for_single_fd’
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: int t(void) { rb_wait_for_single_fd(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for rb_hash_dup()... -------------------- yes
+
+"gcc -o conftest -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/x86_64-linux -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/ruby/backward -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0 -I. -I/opt/rbenv/versions/2.1.5/include     -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration conftest.c  -L. -L/opt/rbenv/versions/2.1.5/lib -Wl,-R/opt/rbenv/versions/2.1.5/lib -L. -L/opt/rbenv/versions/2.1.5/lib  -fstack-protector -rdynamic -Wl,-export-dynamic     -Wl,-R -Wl,/opt/rbenv/versions/2.1.5/lib -L/opt/rbenv/versions/2.1.5/lib -lruby-static  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_hash_dup; return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for rb_intern3()... -------------------- yes
+
+"gcc -o conftest -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/x86_64-linux -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/ruby/backward -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0 -I. -I/opt/rbenv/versions/2.1.5/include     -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration conftest.c  -L. -L/opt/rbenv/versions/2.1.5/lib -Wl,-R/opt/rbenv/versions/2.1.5/lib -L. -L/opt/rbenv/versions/2.1.5/lib  -fstack-protector -rdynamic -Wl,-export-dynamic     -Wl,-R -Wl,/opt/rbenv/versions/2.1.5/lib -L/opt/rbenv/versions/2.1.5/lib -lruby-static  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+conftest.c: In function ‘t’:
+conftest.c:13: error: ‘rb_intern3’ undeclared (first use in this function)
+conftest.c:13: error: (Each undeclared identifier is reported only once
+conftest.c:13: error: for each function it appears in.)
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_intern3; return 0; }
+/* end */
+
+"gcc -o conftest -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/x86_64-linux -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/ruby/backward -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0 -I. -I/opt/rbenv/versions/2.1.5/include     -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration conftest.c  -L. -L/opt/rbenv/versions/2.1.5/lib -Wl,-R/opt/rbenv/versions/2.1.5/lib -L. -L/opt/rbenv/versions/2.1.5/lib  -fstack-protector -rdynamic -Wl,-export-dynamic     -Wl,-R -Wl,/opt/rbenv/versions/2.1.5/lib -L/opt/rbenv/versions/2.1.5/lib -lruby-static  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+conftest.c: In function ‘t’:
+conftest.c:13: 警告: implicit declaration of function ‘rb_intern3’
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: int t(void) { rb_intern3(); return 0; }
+/* end */
+
+--------------------
+
+have_header: checking for mysql.h... -------------------- yes
+
+"gcc -E -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/x86_64-linux -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/ruby/backward -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0 -I. -I/usr/include/mysql -I/opt/rbenv/versions/2.1.5/include     -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <mysql.h>
+/* end */
+
+--------------------
+
+have_header: checking for errmsg.h... -------------------- yes
+
+"gcc -E -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/x86_64-linux -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/ruby/backward -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0 -I. -I/usr/include/mysql -I/opt/rbenv/versions/2.1.5/include     -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <errmsg.h>
+/* end */
+
+--------------------
+
+have_header: checking for mysqld_error.h... -------------------- yes
+
+"gcc -E -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/x86_64-linux -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/ruby/backward -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0 -I. -I/usr/include/mysql -I/opt/rbenv/versions/2.1.5/include     -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <mysqld_error.h>
+/* end */
+
+--------------------
+
+"gcc -o conftest -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/x86_64-linux -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/ruby/backward -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0 -I. -I/usr/include/mysql -I/opt/rbenv/versions/2.1.5/include     -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration conftest.c  -L. -L/opt/rbenv/versions/2.1.5/lib -Wl,-R/opt/rbenv/versions/2.1.5/lib -L. -L/opt/rbenv/versions/2.1.5/lib  -fstack-protector -rdynamic -Wl,-export-dynamic    -rdynamic -L/usr/lib64/mysql -lmysqlclient_r -lz -lpthread -lcrypt -lnsl -lm -lpthread -lssl -lcrypto  -Wl,-R -Wl,/opt/rbenv/versions/2.1.5/lib -L/opt/rbenv/versions/2.1.5/lib -lruby-static -Werror -Weverything -lpthread -lrt -ldl -lcrypt -lm   -lc"
+cc1: error: unrecognized command line option "-Weverything"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+"gcc -o conftest -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/x86_64-linux -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/ruby/backward -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0 -I. -I/usr/include/mysql -I/opt/rbenv/versions/2.1.5/include     -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration conftest.c  -L. -L/opt/rbenv/versions/2.1.5/lib -Wl,-R/opt/rbenv/versions/2.1.5/lib -L. -L/opt/rbenv/versions/2.1.5/lib  -fstack-protector -rdynamic -Wl,-export-dynamic    -rdynamic -L/usr/lib64/mysql -lmysqlclient_r -lz -lpthread -lcrypt -lnsl -lm -lpthread -lssl -lcrypto  -Wl,-R -Wl,/opt/rbenv/versions/2.1.5/lib -L/opt/rbenv/versions/2.1.5/lib -lruby-static -Werror -Wno-bad-function-cast -lpthread -lrt -ldl -lcrypt -lm   -lc"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+"gcc -o conftest -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/x86_64-linux -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/ruby/backward -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0 -I. -I/usr/include/mysql -I/opt/rbenv/versions/2.1.5/include     -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration conftest.c  -L. -L/opt/rbenv/versions/2.1.5/lib -Wl,-R/opt/rbenv/versions/2.1.5/lib -L. -L/opt/rbenv/versions/2.1.5/lib  -fstack-protector -rdynamic -Wl,-export-dynamic    -rdynamic -L/usr/lib64/mysql -lmysqlclient_r -lz -lpthread -lcrypt -lnsl -lm -lpthread -lssl -lcrypto  -Wl,-R -Wl,/opt/rbenv/versions/2.1.5/lib -L/opt/rbenv/versions/2.1.5/lib -lruby-static -Werror -Wno-conditional-uninitialized -lpthread -lrt -ldl -lcrypt -lm   -lc"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+"gcc -o conftest -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/x86_64-linux -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/ruby/backward -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0 -I. -I/usr/include/mysql -I/opt/rbenv/versions/2.1.5/include     -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration conftest.c  -L. -L/opt/rbenv/versions/2.1.5/lib -Wl,-R/opt/rbenv/versions/2.1.5/lib -L. -L/opt/rbenv/versions/2.1.5/lib  -fstack-protector -rdynamic -Wl,-export-dynamic    -rdynamic -L/usr/lib64/mysql -lmysqlclient_r -lz -lpthread -lcrypt -lnsl -lm -lpthread -lssl -lcrypto  -Wl,-R -Wl,/opt/rbenv/versions/2.1.5/lib -L/opt/rbenv/versions/2.1.5/lib -lruby-static -Werror -Wno-covered-switch-default -lpthread -lrt -ldl -lcrypt -lm   -lc"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+"gcc -o conftest -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/x86_64-linux -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/ruby/backward -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0 -I. -I/usr/include/mysql -I/opt/rbenv/versions/2.1.5/include     -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration conftest.c  -L. -L/opt/rbenv/versions/2.1.5/lib -Wl,-R/opt/rbenv/versions/2.1.5/lib -L. -L/opt/rbenv/versions/2.1.5/lib  -fstack-protector -rdynamic -Wl,-export-dynamic    -rdynamic -L/usr/lib64/mysql -lmysqlclient_r -lz -lpthread -lcrypt -lnsl -lm -lpthread -lssl -lcrypto  -Wl,-R -Wl,/opt/rbenv/versions/2.1.5/lib -L/opt/rbenv/versions/2.1.5/lib -lruby-static -Werror -Wno-declaration-after-statement -lpthread -lrt -ldl -lcrypt -lm   -lc"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+"gcc -o conftest -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/x86_64-linux -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/ruby/backward -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0 -I. -I/usr/include/mysql -I/opt/rbenv/versions/2.1.5/include     -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration conftest.c  -L. -L/opt/rbenv/versions/2.1.5/lib -Wl,-R/opt/rbenv/versions/2.1.5/lib -L. -L/opt/rbenv/versions/2.1.5/lib  -fstack-protector -rdynamic -Wl,-export-dynamic    -rdynamic -L/usr/lib64/mysql -lmysqlclient_r -lz -lpthread -lcrypt -lnsl -lm -lpthread -lssl -lcrypto  -Wl,-R -Wl,/opt/rbenv/versions/2.1.5/lib -L/opt/rbenv/versions/2.1.5/lib -lruby-static -Werror -Wno-disabled-macro-expansion -lpthread -lrt -ldl -lcrypt -lm   -lc"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+"gcc -o conftest -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/x86_64-linux -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/ruby/backward -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0 -I. -I/usr/include/mysql -I/opt/rbenv/versions/2.1.5/include     -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration conftest.c  -L. -L/opt/rbenv/versions/2.1.5/lib -Wl,-R/opt/rbenv/versions/2.1.5/lib -L. -L/opt/rbenv/versions/2.1.5/lib  -fstack-protector -rdynamic -Wl,-export-dynamic    -rdynamic -L/usr/lib64/mysql -lmysqlclient_r -lz -lpthread -lcrypt -lnsl -lm -lpthread -lssl -lcrypto  -Wl,-R -Wl,/opt/rbenv/versions/2.1.5/lib -L/opt/rbenv/versions/2.1.5/lib -lruby-static -Werror -Wno-documentation-unknown-command -lpthread -lrt -ldl -lcrypt -lm   -lc"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+"gcc -o conftest -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/x86_64-linux -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/ruby/backward -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0 -I. -I/usr/include/mysql -I/opt/rbenv/versions/2.1.5/include     -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration conftest.c  -L. -L/opt/rbenv/versions/2.1.5/lib -Wl,-R/opt/rbenv/versions/2.1.5/lib -L. -L/opt/rbenv/versions/2.1.5/lib  -fstack-protector -rdynamic -Wl,-export-dynamic    -rdynamic -L/usr/lib64/mysql -lmysqlclient_r -lz -lpthread -lcrypt -lnsl -lm -lpthread -lssl -lcrypto  -Wl,-R -Wl,/opt/rbenv/versions/2.1.5/lib -L/opt/rbenv/versions/2.1.5/lib -lruby-static -Werror -Wno-missing-field-initializers -lpthread -lrt -ldl -lcrypt -lm   -lc"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+"gcc -o conftest -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/x86_64-linux -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/ruby/backward -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0 -I. -I/usr/include/mysql -I/opt/rbenv/versions/2.1.5/include     -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration conftest.c  -L. -L/opt/rbenv/versions/2.1.5/lib -Wl,-R/opt/rbenv/versions/2.1.5/lib -L. -L/opt/rbenv/versions/2.1.5/lib  -fstack-protector -rdynamic -Wl,-export-dynamic    -rdynamic -L/usr/lib64/mysql -lmysqlclient_r -lz -lpthread -lcrypt -lnsl -lm -lpthread -lssl -lcrypto  -Wl,-R -Wl,/opt/rbenv/versions/2.1.5/lib -L/opt/rbenv/versions/2.1.5/lib -lruby-static -Werror -Wno-missing-variable-declarations -lpthread -lrt -ldl -lcrypt -lm   -lc"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+"gcc -o conftest -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/x86_64-linux -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/ruby/backward -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0 -I. -I/usr/include/mysql -I/opt/rbenv/versions/2.1.5/include     -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration conftest.c  -L. -L/opt/rbenv/versions/2.1.5/lib -Wl,-R/opt/rbenv/versions/2.1.5/lib -L. -L/opt/rbenv/versions/2.1.5/lib  -fstack-protector -rdynamic -Wl,-export-dynamic    -rdynamic -L/usr/lib64/mysql -lmysqlclient_r -lz -lpthread -lcrypt -lnsl -lm -lpthread -lssl -lcrypto  -Wl,-R -Wl,/opt/rbenv/versions/2.1.5/lib -L/opt/rbenv/versions/2.1.5/lib -lruby-static -Werror -Wno-padded -lpthread -lrt -ldl -lcrypt -lm   -lc"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+"gcc -o conftest -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/x86_64-linux -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/ruby/backward -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0 -I. -I/usr/include/mysql -I/opt/rbenv/versions/2.1.5/include     -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration conftest.c  -L. -L/opt/rbenv/versions/2.1.5/lib -Wl,-R/opt/rbenv/versions/2.1.5/lib -L. -L/opt/rbenv/versions/2.1.5/lib  -fstack-protector -rdynamic -Wl,-export-dynamic    -rdynamic -L/usr/lib64/mysql -lmysqlclient_r -lz -lpthread -lcrypt -lnsl -lm -lpthread -lssl -lcrypto  -Wl,-R -Wl,/opt/rbenv/versions/2.1.5/lib -L/opt/rbenv/versions/2.1.5/lib -lruby-static -Werror -Wno-reserved-id-macro -lpthread -lrt -ldl -lcrypt -lm   -lc"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+"gcc -o conftest -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/x86_64-linux -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/ruby/backward -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0 -I. -I/usr/include/mysql -I/opt/rbenv/versions/2.1.5/include     -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration conftest.c  -L. -L/opt/rbenv/versions/2.1.5/lib -Wl,-R/opt/rbenv/versions/2.1.5/lib -L. -L/opt/rbenv/versions/2.1.5/lib  -fstack-protector -rdynamic -Wl,-export-dynamic    -rdynamic -L/usr/lib64/mysql -lmysqlclient_r -lz -lpthread -lcrypt -lnsl -lm -lpthread -lssl -lcrypto  -Wl,-R -Wl,/opt/rbenv/versions/2.1.5/lib -L/opt/rbenv/versions/2.1.5/lib -lruby-static -Werror -Wno-sign-conversion -lpthread -lrt -ldl -lcrypt -lm   -lc"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+"gcc -o conftest -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/x86_64-linux -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/ruby/backward -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0 -I. -I/usr/include/mysql -I/opt/rbenv/versions/2.1.5/include     -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration conftest.c  -L. -L/opt/rbenv/versions/2.1.5/lib -Wl,-R/opt/rbenv/versions/2.1.5/lib -L. -L/opt/rbenv/versions/2.1.5/lib  -fstack-protector -rdynamic -Wl,-export-dynamic    -rdynamic -L/usr/lib64/mysql -lmysqlclient_r -lz -lpthread -lcrypt -lnsl -lm -lpthread -lssl -lcrypto  -Wl,-R -Wl,/opt/rbenv/versions/2.1.5/lib -L/opt/rbenv/versions/2.1.5/lib -lruby-static -Werror -Wno-static-in-inline -lpthread -lrt -ldl -lcrypt -lm   -lc"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+"gcc -o conftest -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/x86_64-linux -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/ruby/backward -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0 -I. -I/usr/include/mysql -I/opt/rbenv/versions/2.1.5/include     -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration conftest.c  -L. -L/opt/rbenv/versions/2.1.5/lib -Wl,-R/opt/rbenv/versions/2.1.5/lib -L. -L/opt/rbenv/versions/2.1.5/lib  -fstack-protector -rdynamic -Wl,-export-dynamic    -rdynamic -L/usr/lib64/mysql -lmysqlclient_r -lz -lpthread -lcrypt -lnsl -lm -lpthread -lssl -lcrypto  -Wl,-R -Wl,/opt/rbenv/versions/2.1.5/lib -L/opt/rbenv/versions/2.1.5/lib -lruby-static -Werror -Wno-switch-enum -lpthread -lrt -ldl -lcrypt -lm   -lc"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+"gcc -o conftest -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/x86_64-linux -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/ruby/backward -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0 -I. -I/usr/include/mysql -I/opt/rbenv/versions/2.1.5/include     -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration conftest.c  -L. -L/opt/rbenv/versions/2.1.5/lib -Wl,-R/opt/rbenv/versions/2.1.5/lib -L. -L/opt/rbenv/versions/2.1.5/lib  -fstack-protector -rdynamic -Wl,-export-dynamic    -rdynamic -L/usr/lib64/mysql -lmysqlclient_r -lz -lpthread -lcrypt -lnsl -lm -lpthread -lssl -lcrypto  -Wl,-R -Wl,/opt/rbenv/versions/2.1.5/lib -L/opt/rbenv/versions/2.1.5/lib -lruby-static -Werror -Wno-undef -lpthread -lrt -ldl -lcrypt -lm   -lc"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+"gcc -o conftest -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/x86_64-linux -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/ruby/backward -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0 -I. -I/usr/include/mysql -I/opt/rbenv/versions/2.1.5/include     -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration conftest.c  -L. -L/opt/rbenv/versions/2.1.5/lib -Wl,-R/opt/rbenv/versions/2.1.5/lib -L. -L/opt/rbenv/versions/2.1.5/lib  -fstack-protector -rdynamic -Wl,-export-dynamic    -rdynamic -L/usr/lib64/mysql -lmysqlclient_r -lz -lpthread -lcrypt -lnsl -lm -lpthread -lssl -lcrypto  -Wl,-R -Wl,/opt/rbenv/versions/2.1.5/lib -L/opt/rbenv/versions/2.1.5/lib -lruby-static -Werror -Wno-unreachable-code -lpthread -lrt -ldl -lcrypt -lm   -lc"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+"gcc -o conftest -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/x86_64-linux -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0/ruby/backward -I/opt/rbenv/versions/2.1.5/include/ruby-2.1.0 -I. -I/usr/include/mysql -I/opt/rbenv/versions/2.1.5/include     -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration conftest.c  -L. -L/opt/rbenv/versions/2.1.5/lib -Wl,-R/opt/rbenv/versions/2.1.5/lib -L. -L/opt/rbenv/versions/2.1.5/lib  -fstack-protector -rdynamic -Wl,-export-dynamic    -rdynamic -L/usr/lib64/mysql -lmysqlclient_r -lz -lpthread -lcrypt -lnsl -lm -lpthread -lssl -lcrypto  -Wl,-R -Wl,/opt/rbenv/versions/2.1.5/lib -L/opt/rbenv/versions/2.1.5/lib -lruby-static -Werror -Wno-used-but-marked-unused -lpthread -lrt -ldl -lcrypt -lm   -lc"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
