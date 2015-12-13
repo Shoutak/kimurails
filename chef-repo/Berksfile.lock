@@ -7,6 +7,7 @@ DEPENDENCIES
   rbenv (~> 1.7.1)
   unicorn (~> 2.1.0)
   vim
+  yum (~> 3.8.2)
 
 GRAPH
   7-zip (1.0.2)

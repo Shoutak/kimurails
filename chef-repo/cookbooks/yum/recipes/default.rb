@@ -17,6 +17,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+
+file '/etc/yum.conf' do 
+  _file = Chef::Util::FileEdit.new(path)
+  _file.search_file_replace_line('exclude=kernel', "#exclude=kernel\n")
+  content _file.send(:editor).lines.join
+  action :create
+end.run_action(:create)
+
 yum_globalconfig '/etc/yum.conf' do
   node['yum']['main'].each do |config, value|
     send(config.to_sym, value) unless value.nil?

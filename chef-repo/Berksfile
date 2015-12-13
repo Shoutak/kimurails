@@ -8,3 +8,4 @@ cookbook 'vim'
 cookbook 'mysql', "~> 6.1.2"
 cookbook 'imagemagick', '~> 0.2.3'
 cookbook 'opencv', '~> 0.0.6'
+cookbook 'yum', '~> 3.8.2'
