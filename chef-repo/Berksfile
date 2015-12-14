@@ -1,0 +1,11 @@
+source "https://supermarket.chef.io"
+
+cookbook 'nginx', '~> 2.7.6'
+cookbook 'unicorn', '~> 2.1.0'
+cookbook 'nodejs', '~> 2.2.0'
+cookbook 'rbenv', '~> 1.7.1'
+cookbook 'vim'
+cookbook 'mysql', "~> 6.1.2"
+cookbook 'imagemagick', '~> 0.2.3'
+cookbook 'opencv', '~> 0.0.6'
+cookbook 'yum', '~> 3.8.2'
