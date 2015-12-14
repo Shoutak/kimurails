@@ -38,3 +38,4 @@ file '/etc/yum.conf' do
   content _file.send(:editor).lines.join
   action :create
 end.run_action(:create)
+

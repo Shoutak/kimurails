@@ -1,5 +1,7 @@
 {
     "run_list":[
+      "recipe[nginx]",
+      "recipe[unicorn]",
       "recipe[vim]",
       "recipe[nodejs]",
       "recipe[rbenv::default]",
